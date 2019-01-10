@@ -1,13 +1,13 @@
 {
   "type": "panel",
-  "name": "Status Panel",
-  "id": "vonage-status-panel",
+  "name": "CC Status Panel",
+  "id": "cc-status-panel",
 
   "info": {
     "description": "Status Panel for Grafana",
     "author": {
-      "name": "Tomer Amir",
-      "url": "https://github.com/Vonage"
+      "name": "Tomer Amir, Stefan Hipfel",
+      "url": "https://github.com/sapcc"
     },
     "keywords": ["status", "panel"],
     "logos": {
@@ -15,7 +15,7 @@
       "large": "img/icon_status_panel.svg"
     },
     "links": [
-      {"name": "Github", "url": "https://github.com/Vonage/Grafana_Status_panel"}
+      {"name": "Github", "url": "https://github.com/sapcc/Grafana_Status_panel"}
     ],
     "screenshots": [
       {"name": "Environment Snapshot", "path": "img/environment_snapshot.png"},
@@ -23,12 +23,12 @@
       {"name": "Warning State", "path": "img/warning.png"},
       {"name": "Critical State", "path": "img/error.png"}
     ],
-    "version": "1.0.9",
-    "updated": "2018-12-10"
+    "version": "1.1.0",
+    "updated": "2019-01-10"
   },
 
   "dependencies": {
-    "grafanaVersion": "3.x.x",
+    "grafanaVersion": "5.x.x",
     "plugins": [ ]
   }
 }

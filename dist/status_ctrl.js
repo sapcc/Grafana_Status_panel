@@ -204,7 +204,7 @@ System.register(["app/plugins/sdk", "lodash", "app/core/time_series2", "app/core
 
 						_.each(this.measurements, function (m) {
 							var res = _.filter(_this3.measurements, function (measurement) {
-								return (m.alias == measurement.alias || m.target == measurement.target && m.target) && !m.hide;
+								return m.alias == measurement.alias && !m.hide;
 							});
 
 							if (res.length > 1) {
