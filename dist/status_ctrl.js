@@ -215,7 +215,7 @@ System.register(["app/plugins/sdk", "lodash", "app/core/time_series2", "app/core
 				}, {
 					key: "onInitEditMode",
 					value: function onInitEditMode() {
-						this.addEditorTab('Options', 'public/plugins/vonage-status-panel/editor.html', 2);
+						this.addEditorTab('Options', 'public/plugins/cc-status-panel/editor.html', 2);
 						// Load in the supported units-of-measure formats so they can be displayed in the editor
 						this.unitFormats = kbn.getUnitFormats();
 					}
