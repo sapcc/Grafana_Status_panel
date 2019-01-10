@@ -131,7 +131,7 @@ export class StatusPluginCtrl extends MetricsPanelCtrl {
 
 		_.each(this.measurements, (m) => {
 			let res = _.filter(this.measurements, (measurement) => {
-				return (m.alias == measurement.alias || (m.target == measurement.target && m.target)) && !m.hide;
+				return (m.alias == measurement.alias) && !m.hide;
 			});
 
 			if (res.length > 1) {
@@ -371,7 +371,8 @@ export class StatusPluginCtrl extends MetricsPanelCtrl {
 		let isCritical = false;
 		let isWarning = false;
 		let isCheckRanges = series.thresholds.warnIsNumber && series.thresholds.critIsNumber;
-		if (isCheckRanges) {
+		let isAlert = series.alias === "ALERT";
+		if (isCheckRanges && isAlert) {
 			if (!series.inverted) {
 				if (series.display_value >= series.thresholds.crit) {
 					isCritical = true
@@ -385,7 +386,7 @@ export class StatusPluginCtrl extends MetricsPanelCtrl {
 					isWarning = true
 				}
 			}
-		} else {
+		} else if (isAlert){
 			if (series.display_value == series.thresholds.crit) {
 				isCritical = true
 			} else if (series.display_value == series.thresholds.warn) {

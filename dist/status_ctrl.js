@@ -460,7 +460,8 @@ System.register(["app/plugins/sdk", "lodash", "app/core/time_series2", "app/core
 						var isCritical = false;
 						var isWarning = false;
 						var isCheckRanges = series.thresholds.warnIsNumber && series.thresholds.critIsNumber;
-						if (isCheckRanges) {
+						var isAlert = series.alias === "ALERT";
+						if (isCheckRanges && isAlert) {
 							if (!series.inverted) {
 								if (series.display_value >= series.thresholds.crit) {
 									isCritical = true;
@@ -474,7 +475,7 @@ System.register(["app/plugins/sdk", "lodash", "app/core/time_series2", "app/core
 									isWarning = true;
 								}
 							}
-						} else {
+						} else if (isAlert) {
 							if (series.display_value == series.thresholds.crit) {
 								isCritical = true;
 							} else if (series.display_value == series.thresholds.warn) {
