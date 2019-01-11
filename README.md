@@ -2,7 +2,7 @@
 
 Adapted Status Panel to show total Alerts in the title area and additional alerts (e.g. silenced, acknowledged) below.
 
-![error](https://github.com/sapcc/Grafana_Status_panel/blob/develop/src/img/error.png?raw=true)
+<img src="https://raw.githubusercontent.com/sapcc/Grafana_Status_panel/master/src/img/error.png" width="100"><img/>
 
 This is a plugin meant to be used as a centralized view for the status of component in a glance.
 It is very similar to the Single Stat panel, but it can hold multiple values from the same data source.
