@@ -602,6 +602,19 @@ export class StatusPluginCtrl extends MetricsPanelCtrl {
 
 	onDataReceived(dataList) {
 		this.series = dataList.map(StatusPluginCtrl.seriesHandler.bind(this));
+		this.series.forEach(serie => {
+			dataList.find(elem => {
+				if(elem.target === serie.alias) {
+					if(elem.silenced.size > 0) {
+						serie["tooltip"] = Array.from(elem.silenced).join(", ");
+					}
+					if(elem.acked.size > 0) {
+						serie["tooltip"] = Array.from(elem.acked).join(", ");
+						serie["acked"] = elem.acked;
+					}
+				} 
+			});
+		});
 		this.render();
 	}
 
@@ -627,7 +640,16 @@ export class StatusPluginCtrl extends MetricsPanelCtrl {
 
 	autoFlip() {
 		if (this.timeoutId) clearInterval(this.timeoutId);
-		if (this.panel.flipCard && (this.crit.length > 0 || this.warn.length > 0 || this.disabled.length > 0)) {
+
+		let acked = this.display.find(d => {
+			if(d.alias == "ACKED") {
+				if (d["acked"] && d["acked"].size > 0) {
+					return true;
+				}
+			}
+		});
+
+		if (this.panel.flipCard && acked) {
 			this.timeoutId = setInterval(() => {
 				this.$panelContainer.toggleClass("flipped");
 			}, this.panel.flipTime * 1000);

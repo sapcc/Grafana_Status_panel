@@ -672,6 +672,19 @@ System.register(["app/plugins/sdk", "lodash", "app/core/time_series2", "app/core
 					key: "onDataReceived",
 					value: function onDataReceived(dataList) {
 						this.series = dataList.map(StatusPluginCtrl.seriesHandler.bind(this));
+						this.series.forEach(function (serie) {
+							dataList.find(function (elem) {
+								if (elem.target === serie.alias) {
+									if (elem.silenced.size > 0) {
+										serie["tooltip"] = Array.from(elem.silenced).join(", ");
+									}
+									if (elem.acked.size > 0) {
+										serie["tooltip"] = Array.from(elem.acked).join(", ");
+										serie["acked"] = elem.acked;
+									}
+								}
+							});
+						});
 						this.render();
 					}
 				}, {
@@ -691,7 +704,16 @@ System.register(["app/plugins/sdk", "lodash", "app/core/time_series2", "app/core
 						var _this8 = this;
 
 						if (this.timeoutId) clearInterval(this.timeoutId);
-						if (this.panel.flipCard && (this.crit.length > 0 || this.warn.length > 0 || this.disabled.length > 0)) {
+
+						var acked = this.display.find(function (d) {
+							if (d.alias == "ACKED") {
+								if (d["acked"] && d["acked"].size > 0) {
+									return true;
+								}
+							}
+						});
+
+						if (this.panel.flipCard && acked) {
 							this.timeoutId = setInterval(function () {
 								_this8.$panelContainer.toggleClass("flipped");
 							}, this.panel.flipTime * 1000);

@@ -5,7 +5,7 @@
   height: 100%;
   text-align: center; }
   .status-panel h1 {
-    font-size: 3.5rem; }
+    font-size: 4.0rem; }
   .status-panel .st-card-front {
     position: absolute;
     width: 100%;
@@ -13,11 +13,15 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-content: center; }
+    align-content: center;
+    font-size: 1.5rem; }
+    .status-panel .st-card-front h1 {
+      font-size: 2rem; }
   .status-panel .st-card-back {
     display: flex;
     justify-content: space-between;
-    flex-direction: column; }
+    flex-direction: column;
+    font-size: 18px; }
     .status-panel .st-card-back .top_section .status-panel-annotation_row {
       text-align: left;
       font-size: 0.85rem; }

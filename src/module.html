@@ -4,12 +4,17 @@
 	</div>
 
 	<div class="st-card-front" ng-hide="ctrl.duplicates">
-		<div class="ok-text" ng-style="ctrl.panel.colorMode === 'Metric' && !ctrl.panel.isIgnoreOKColors && {'color':ctrl.panel.colors.ok}">OK</div>
-		<div class="warning-text" ng-style="ctrl.panel.colorMode === 'Metric' && {'color':ctrl.panel.colors.warn}">Warning</div>
-		<div class="fail-text" ng-style="ctrl.panel.colorMode === 'Metric' && {'color':ctrl.panel.colors.crit}">Critical</div>
 		<div class="no-data-text" ng-style="ctrl.panel.colorMode === 'Metric' && {'color':ctrl.panel.colors.disable}">No data</div>
 		<div class="disabled-text" ng-style="ctrl.panel.colorMode === 'Metric' && {'color':ctrl.panel.colors.disable}">Disabled</div>
+
+		<div class="status_alerts_row" ng-class="{'marquee_element': ctrl.isAutoScrollAlerts()}">
+			<div ng-style="ctrl.panel.colorMode === 'Metric' && !ctrl.panel.isIgnoreOKColors && {'color':ctrl.panel.colors.ok}" ng-repeat="display in ctrl.display">
+				<h1 ng-show="display.alias === 'ACKED' ">ACKED BY</h1>
+				<span ng-show="display.alias === 'ACKED' " title="{{ display.tooltip }}"> {{ display.tooltip }}</span>
+			</div>
+		</div>
 	</div>
+
 	<div class="st-card-back" ng-hide="ctrl.duplicates" ng-style="{ 'min-height': ctrl.minHeight }">
 
 		<div class="top_section">
@@ -49,8 +54,8 @@
 					<div ng-style="ctrl.panel.colorMode === 'Metric' && !ctrl.panel.isIgnoreOKColors && {'color':ctrl.panel.colors.ok}" ng-repeat="display in ctrl.display">
 						<a ng-show="display.url" ng-href="{{ display.url | interpolateTemplateVars:this }}" target="_blank" style="color:inherit">{{ display.alias }}</a>
 						<span ng-if="display.display_value !== '0'">
-							<span ng-hide="display.url">{{ display.alias }}</span>
-							<span ng-show="display.isDisplayValue"> - {{ display.display_value | numberOrTextWithRegex : display.valueDisplayRegex }}</span>
+							<span ng-hide="display.url" title="{{ display.tooltip }}">{{ display.alias }}</span>
+							<span ng-show="display.isDisplayValue" title="{{ display.tooltip }}"> - {{ display.display_value | numberOrTextWithRegex : display.valueDisplayRegex }}</span>
 						</sapn>
 					</div>
 

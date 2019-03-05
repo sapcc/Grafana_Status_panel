@@ -6,7 +6,7 @@
 	text-align: center;
 
 	h1 {
-		font-size: 3.5rem;
+		font-size: 4.0rem;
 	}
 
 	.st-card-front {
@@ -18,12 +18,19 @@
 		flex-direction: column;
 		justify-content: center;
 		align-content: center;
+
+		h1 {
+			font-size: 2rem;
+		}
+
+		font-size: 1.5rem;
 	}
 
 	.st-card-back {
 		display: flex;
 		justify-content: space-between;
 		flex-direction: column;
+		font-size: 18px;
 
 		.top_section {
 			.status-panel-annotation_row {
