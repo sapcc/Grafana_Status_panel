@@ -605,6 +605,13 @@ export class StatusPluginCtrl extends MetricsPanelCtrl {
 	onDataReceived(dataList) {
 		this.series = dataList.map(StatusPluginCtrl.seriesHandler.bind(this));
 		this.series.forEach(serie => {
+			if(serie.alias === "ALERT") {
+				let acked = this.series.find(elem => {
+					if (elem.alias === "ACKED") return elem;
+				});
+				// substract acked alerts from total alerts!
+				serie.datapoints[0][0] = serie.datapoints[0][0] - acked.datapoints[0][0];
+			}
 			dataList.find(elem => {
 				if(elem.target === serie.alias) {
 					if(elem.silenced.size > 0) {
