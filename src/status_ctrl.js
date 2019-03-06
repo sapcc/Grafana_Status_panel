@@ -224,10 +224,12 @@ export class StatusPluginCtrl extends MetricsPanelCtrl {
 			this.panel.displayName = "";
 		}
 
-		if(this.panel.flipCard){
-			this.$panelContainer.addClass("effect-hover");
-		} else {
-			this.$panelContainer.removeClass("effect-hover");
+		if (this.flipCardEnabled()) {
+			if(this.panel.flipCard){
+				this.$panelContainer.addClass("effect-hover");
+			} else {
+				this.$panelContainer.removeClass("effect-hover");
+			}
 		}
 
 		let targets = this.panel.targets;
@@ -641,13 +643,7 @@ export class StatusPluginCtrl extends MetricsPanelCtrl {
 	autoFlip() {
 		if (this.timeoutId) clearInterval(this.timeoutId);
 
-		let acked = this.display.find(d => {
-			if(d.alias == "ACKED") {
-				if (d["acked"] && d["acked"].size > 0) {
-					return true;
-				}
-			}
-		});
+		let acked = this.flipCardEnabled()
 
 		if (this.panel.flipCard && acked) {
 			this.timeoutId = setInterval(() => {
@@ -660,6 +656,17 @@ export class StatusPluginCtrl extends MetricsPanelCtrl {
 		this.$panelContainer = elem.find('.panel-container');
 		this.$panelContainer.addClass("st-card");
 		this.$panelContoller = ctrl;
+	}
+
+	flipCardEnabled() {
+		if (!this.series) return false;
+		return this.series.find(s => {
+			if(s.alias == "ACKED") {
+				if (s["acked"] && s["acked"].size > 0) {
+					return true;
+				}
+			}
+		});
 	}
 }
 

@@ -308,10 +308,12 @@ System.register(["app/plugins/sdk", "lodash", "app/core/time_series2", "app/core
 							this.panel.displayName = "";
 						}
 
-						if (this.panel.flipCard) {
-							this.$panelContainer.addClass("effect-hover");
-						} else {
-							this.$panelContainer.removeClass("effect-hover");
+						if (this.flipCardEnabled()) {
+							if (this.panel.flipCard) {
+								this.$panelContainer.addClass("effect-hover");
+							} else {
+								this.$panelContainer.removeClass("effect-hover");
+							}
 						}
 
 						var targets = this.panel.targets;
@@ -705,13 +707,7 @@ System.register(["app/plugins/sdk", "lodash", "app/core/time_series2", "app/core
 
 						if (this.timeoutId) clearInterval(this.timeoutId);
 
-						var acked = this.display.find(function (d) {
-							if (d.alias == "ACKED") {
-								if (d["acked"] && d["acked"].size > 0) {
-									return true;
-								}
-							}
-						});
+						var acked = this.flipCardEnabled();
 
 						if (this.panel.flipCard && acked) {
 							this.timeoutId = setInterval(function () {
@@ -725,6 +721,18 @@ System.register(["app/plugins/sdk", "lodash", "app/core/time_series2", "app/core
 						this.$panelContainer = elem.find('.panel-container');
 						this.$panelContainer.addClass("st-card");
 						this.$panelContoller = ctrl;
+					}
+				}, {
+					key: "flipCardEnabled",
+					value: function flipCardEnabled() {
+						if (!this.series) return false;
+						return this.series.find(function (s) {
+							if (s.alias == "ACKED") {
+								if (s["acked"] && s["acked"].size > 0) {
+									return true;
+								}
+							}
+						});
 					}
 				}], [{
 					key: "parseThresholds",
