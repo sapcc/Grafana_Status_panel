@@ -1,5 +1,8 @@
+.panel-content {
+  overflow: inherit; }
+
 .status-panel {
-  overflow: hidden;
+  overflow: inherit;
   position: relative;
   width: 100%;
   height: 100%;
