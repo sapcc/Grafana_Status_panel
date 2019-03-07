@@ -32,20 +32,20 @@
 		<div class="bottom_section" ng-style="ctrl.annotation.length === 0 && { 'min-height': ctrl.minHeight }">
 			<div class="status_name_row">
 				<h1>
-					<a ng-href="{{ ctrl.uri | interpolateTemplateVars:this }}" target="{{ ctrl.targetBlank ? '_blank' : '_self' }}" ng-if="ctrl.uri">
+					<a ng-href="{{ ctrl.uri | interpolateTemplateVars:this }}" target="{{ ctrl.targetBlank ? '_blank' : '_self' }}">
 						{{ crit.display_value | interpolateTemplateVars:this }}
+						<div ng-style="ctrl.panel.colorMode === 'Metric' && {'color':ctrl.panel.colors.crit}"
+							ng-class="{'boldAlertMetric': ctrl.panel.fontFormat === 'Bold', 'italicAlertMetric': ctrl.panel.fontFormat === 'Italic'}"
+							ng-repeat="crit in ctrl.crit">
+							<span ng-show="crit.isDisplayValue"> {{ crit.display_value | numberOrTextWithRegex : warn.valueDisplayRegex }}</span>
+						</div>
+						<span ng-if="ctrl.crit.length === 0">
+							0
+						</sapn>
+						<span ng-hide="ctrl.uri">
+							{{ crit.display_value | interpolateTemplateVars:this }}
+						</span>
 					</a>
-					<div ng-style="ctrl.panel.colorMode === 'Metric' && {'color':ctrl.panel.colors.crit}"
-						 ng-class="{'boldAlertMetric': ctrl.panel.fontFormat === 'Bold', 'italicAlertMetric': ctrl.panel.fontFormat === 'Italic'}"
-						 ng-repeat="crit in ctrl.crit">
-						<span ng-show="crit.isDisplayValue"> {{ crit.display_value | numberOrTextWithRegex : warn.valueDisplayRegex }}</span>
-					</div>
-					<span ng-if="ctrl.crit.length === 0">
-						0
-					</sapn>
-					<span ng-hide="ctrl.uri">
-					{{ crit.display_value | interpolateTemplateVars:this }}
-				</span>
 				</h1>
 			</div>
 
