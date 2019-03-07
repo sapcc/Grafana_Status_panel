@@ -639,18 +639,13 @@ System.register(["app/plugins/sdk", "lodash", "app/core/time_series2", "app/core
 				}, {
 					key: "parseUri",
 					value: function parseUri() {
+						var linkSrv = this.$injector.get('linkSrv');
 						if (this.panel.links && this.panel.links.length > 0) {
 							var link = this.panel.links[0];
 
-							if (link.type == "absolute") {
-								this.uri = link.url;
-							} else {
-								this.uri = 'dashboard/' + link.dashUri;
-							}
+							var info = linkSrv.getPanelLinkAnchorInfo(link, this.panel.scopedVars);
 
-							if (link.params) {
-								this.uri += "?" + link.params;
-							}
+							this.uri = info.href;
 
 							this.targetBlank = link.targetBlank;
 						} else {

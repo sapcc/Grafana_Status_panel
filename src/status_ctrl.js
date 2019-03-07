@@ -535,18 +535,13 @@ export class StatusPluginCtrl extends MetricsPanelCtrl {
 	}
 
 	parseUri() {
+		const linkSrv = this.$injector.get('linkSrv');
 		if (this.panel.links && this.panel.links.length > 0) {
 			let link = this.panel.links[0];
 
-			if (link.type == "absolute") {
-				this.uri = link.url;
-			} else {
-				this.uri = 'dashboard/' + link.dashUri;
-			}
+			const info = linkSrv.getPanelLinkAnchorInfo(link, this.panel.scopedVars);
 
-			if (link.params) {
-				this.uri +=  "?" + link.params;
-			}
+			this.uri = info.href;
 
 			this.targetBlank = link.targetBlank;
 		} else {
