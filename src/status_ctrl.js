@@ -391,9 +391,9 @@ export class StatusPluginCtrl extends MetricsPanelCtrl {
 				}
 			}
 		} else {
-			if (series.display_value == series.thresholds.crit) {
+			if (series.display_value >= series.thresholds.crit) {
 				isCritical = true
-			} else if (series.display_value == series.thresholds.warn) {
+			} else if (series.display_value >= series.thresholds.warn) {
 				isWarning = true
 			}
 		}

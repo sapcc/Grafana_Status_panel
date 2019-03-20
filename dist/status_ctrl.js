@@ -480,9 +480,9 @@ System.register(["app/plugins/sdk", "lodash", "app/core/time_series2", "app/core
 								}
 							}
 						} else {
-							if (series.display_value == series.thresholds.crit) {
+							if (series.display_value >= series.thresholds.crit) {
 								isCritical = true;
-							} else if (series.display_value == series.thresholds.warn) {
+							} else if (series.display_value >= series.thresholds.warn) {
 								isWarning = true;
 							}
 						}
