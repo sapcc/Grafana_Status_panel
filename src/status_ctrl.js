@@ -235,6 +235,7 @@ export class StatusPluginCtrl extends MetricsPanelCtrl {
 		let targets = this.panel.targets;
 
 		this.crit = [];
+		this.acked_silenced = [];
 		this.warn = [];
 		this.disabled = [];
 		this.display = [];
@@ -310,6 +311,7 @@ export class StatusPluginCtrl extends MetricsPanelCtrl {
 
 		if(this.panel.isHideAlertsOnDisable && this.disabled.length > 0) {
 			this.crit = [];
+			this.acked_silenced = [];
 			this.warn = [];
 			this.display = [];
 		}
@@ -388,7 +390,7 @@ export class StatusPluginCtrl extends MetricsPanelCtrl {
 					isWarning = true
 				}
 			}
-		} else if (isAlert){
+		} else {
 			if (series.display_value == series.thresholds.crit) {
 				isCritical = true
 			} else if (series.display_value == series.thresholds.warn) {
@@ -407,7 +409,17 @@ export class StatusPluginCtrl extends MetricsPanelCtrl {
 			//In critical state we don't show the error as annotation
 			series.displayType = this.displayTypes[0];
 			series.isDisplayValue = displayValueWhenAliasDisplayed || displayValueFromWarning || displayValueFromCritical;
-			this.crit.push(series);
+			if (series.alias === "ALERT") {
+				this.crit.push(series);
+			} else {
+				series.isDisplayValue = displayValueWhenAliasDisplayed;
+				this.acked_silenced.push(series)
+				if(series.displayType == "Annotation") {
+					this.annotation.push(series);
+				} else {
+					this.display.push(series);
+				}
+			}
 		} else if(isWarning) {
 			//In warning state we don't show the warning as annotation
 			series.displayType = this.displayTypes[0];
@@ -483,7 +495,7 @@ export class StatusPluginCtrl extends MetricsPanelCtrl {
 			this.panelState = 'error-state';
 		} else if (this.disabled.length > 0) {
 			this.panelState = 'disabled-state';
-		} else if (this.crit.length > 0) {
+		} else if (this.crit.length > 0 || this.acked_silenced.length > 0) {
 			this.panelState = 'error-state';
 		} else if (this.warn.length > 0) {
 			this.panelState = 'warn-state';
@@ -624,6 +636,7 @@ export class StatusPluginCtrl extends MetricsPanelCtrl {
 
 	onDataError() {
 		this.crit = [];
+		this.acked_silenced = [];
 		this.warn = [];
 	}
 
