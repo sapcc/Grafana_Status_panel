@@ -1,3 +1,6 @@
+.panel-container {
+  height: 100%; }
+
 .panel-content {
   overflow: inherit; }
 
@@ -24,7 +27,7 @@
     display: flex;
     justify-content: space-between;
     flex-direction: column;
-    font-size: 14px; }
+    font-size: 17px; }
     .status-panel .st-card-back .top_section .status-panel-annotation_row {
       text-align: left;
       font-size: 0.85rem; }
@@ -35,9 +38,13 @@
         white-space: nowrap; }
     .status-panel .st-card-back .bottom_section {
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       justify-content: center;
-      align-content: center; }
+      align-content: center;
+      justify-content: center;
+      align-items: center; }
+      .status-panel .st-card-back .bottom_section .status_name_row {
+        padding-right: 2px; }
       .status-panel .st-card-back .bottom_section .status_alerts_row {
         min-height: 1px; }
         .status-panel .st-card-back .bottom_section .status_alerts_row .status_extra_alerts {
@@ -48,7 +55,8 @@
   .status-panel .st-card-front,
   .status-panel .st-card-back {
     backface-visibility: hidden;
-    transition: transform 0.5s; }
+    transition: transform 0.5s;
+    padding: 5%; }
 
 .marquee_container {
   overflow: hidden; }

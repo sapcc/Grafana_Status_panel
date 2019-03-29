@@ -1,3 +1,7 @@
+.panel-container {
+	height: 100%;
+}
+
 .panel-content {
 	overflow: inherit;
 }
@@ -33,7 +37,7 @@
 		display: flex;
 		justify-content: space-between;
 		flex-direction: column;
-		font-size: 14px;
+		font-size: 17px;
 
 		.top_section {
 			.status-panel-annotation_row {
@@ -51,11 +55,14 @@
 
 		.bottom_section {
 			display: flex;
-			flex-direction: column;
+			flex-direction: row;
 			justify-content: center;
 			align-content: center;
+			justify-content: center;
+			align-items: center;
 
 			.status_name_row {
+				padding-right: 2px;
 			}
 
 			.status_alerts_row {
@@ -77,6 +84,7 @@
 	.st-card-back {
 		backface-visibility: hidden;
 		transition: transform 0.5s;
+		padding: 5%;
 	}
 }
 
